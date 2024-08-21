@@ -24,8 +24,9 @@ class ServiceBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType, CrudTyp
         return None
 
     def create(self, *, obj_in: CreateSchemaType) -> ModelType:
-        if self.observer is None:
-            return
+        # if not isinstance(obj_in, CreateSchemaType):
+        #     raise ValueError(f"Expected obj_in to be of type {CreateSchemaType}, got {type(obj_in)} instead.")
+            
         return self.observer.create(obj_in=obj_in)
 
     def get(self, *, id: int) -> ModelType:

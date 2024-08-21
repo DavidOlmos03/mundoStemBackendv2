@@ -17,6 +17,7 @@ class UserService(ServiceBase[User, UserCreateInDB, UserUpdate, CRUDUserProtocol
             ),
             hashed_password=hashed_password
         )
+        print("Este es el objeto en cuestion(user):",type(obj))
         return super().create(obj_in=obj)
 
     def authenticate(self, *, email: str, password: str) -> UserInDB:

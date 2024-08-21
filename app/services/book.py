@@ -1,13 +1,14 @@
 from app.services.base import ServiceBase
-from app.schemas.book import BookUpdate, BookCreate, BookCreateInDB
-from app.protocols.db.utils.model import BaseModel
+from app.schemas.book import BookUpdate, BookCreate, BookBase
+# from app.protocols.db.utils.model import BaseModel
 from app.protocols.db.models.book import Book
 from app.protocols.db.crud.book import CRUDBookProtocol
 
 
-class BookService(ServiceBase[Book,BookCreateInDB,BookUpdate,CRUDBookProtocol]):
-    def create(serf, *, obj_in: BookCreate)->Book:
-        obj = BookCreateInDB()
+class BookService(ServiceBase[Book,BookBase,BookUpdate,CRUDBookProtocol]):
+    def create(serf, *, obj_in: BookBase)->Book:
+        obj = obj_in
+        print("Este es el objeto en cuestion(book):",type(obj))
         return super().create(obj_in=obj)
     
 
