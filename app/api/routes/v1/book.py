@@ -2,6 +2,23 @@ from fastapi import APIRouter, HTTPException
 from app.schemas.book import BookBase,BookCreate, BookUpdate,BookInDB
 from app.services.book import book_svc
 
+"""
+    Para hacer la consulta dado el nombre de la tabla
+"""
+from sqlalchemy import MetaData,Table, create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+Base = declarative_base()
+
+engine = create_engine(os.getenv("DATABASE_URL"))
+Session = sessionmaker(autocommit=False, autoflush=False, bind=engine) #ESTUDIAR
+session = Session()
+# from connection.connection import engine,Base, session
+
 router = APIRouter()
 
 # Crea un libro
@@ -10,19 +27,32 @@ def create_book(*, new_book: BookBase) -> BookInDB:
     book = book_svc.create(obj_in=new_book)
     return book
 
-
-
+# Obtener todos los libros
 @router.get("", response_model=list[BookInDB], status_code=200)
 def get_all_book(*, skip: int = 0, limit: int = 10) -> list[BookInDB]:
     return book_svc.get_multi(skip=skip, limit=limit)
 
-
+# Obtener libros por id
 @router.get("/{id}", response_model=BookInDB, status_code=200)
 def get_book(*, id: int) -> BookInDB:
     book = book_svc.get(id=id)
     if not book:
         raise HTTPException(404, "Book not found")
     return book
+
+# Obtener los libros por nombre de la tabla
+@router.get("/{table_name}", response_model=BookInDB, status_code=200)
+def get_books_by_table_name(table_name: str):
+    metadata = MetaData()
+    table = Table(table_name, metadata, autoload_with=engine)
+
+    class DynamicModel(Base):
+        __table__ = table
+
+    query = session.query(DynamicModel)
+    results = query.all()
+
+    return results
 
 
 @router.patch("/{id}", response_model=None)
