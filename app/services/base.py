@@ -62,6 +62,7 @@ class ServiceBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType, CrudTyp
         self,
         *, 
         subject: int = 0,
+        topic: int = 0,
         payload: dict[str, Any] | None = None,
         order_by: str | None = None,
         date_range: dict[str, date] | None = None,
@@ -72,6 +73,7 @@ class ServiceBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType, CrudTyp
         return self.observer.get_books_by_subject(
             payload=payload,
             subject=subject,
+            topic=topic,
             order_by=order_by,
             date_range=date_range,
             values=values,
