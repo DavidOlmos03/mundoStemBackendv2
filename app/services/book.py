@@ -13,4 +13,5 @@ class BookService(ServiceBase[Book,BookBase,BookUpdate,CRUDBookProtocol]):
     
 
 
+
 book_svc = BookService()

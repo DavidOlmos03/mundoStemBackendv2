@@ -7,7 +7,8 @@ class BookBase(BaseModel):
     title: str
     authors: str | None
     language: str | None
-    subject: str | None
+    subject: int | None
+    topic: int | None
     pages: int | None
     extension: str | None
     size: int | None
@@ -15,10 +16,11 @@ class BookBase(BaseModel):
 
 
 class BookCreate(BaseModel):
-    title: str
+    title: str | None
     authors: str | None
     language: str | None
-    subject: str | None
+    subject: int | None
+    topic: int | None
     pages: int | None
     extension: str | None
     size: int | None
@@ -26,10 +28,11 @@ class BookCreate(BaseModel):
 
 
 class BookUpdate(BaseModel):
-    title: str
+    title: str | None
     authors: str | None
     language: str | None
-    subject: str | None
+    subject: int | None
+    topic: int | None
     pages: int | None
     extension: str | None
     size: int | None
@@ -39,7 +42,7 @@ class BookUpdate(BaseModel):
 #     title: str
 #     authors: str | None
 #     language: str | None
-#     subject: str | None
+#     subject: int | None
 #     pages: int | None
 #     extension: str | None
 #     size: int | None

@@ -40,19 +40,11 @@ def get_book(*, id: int) -> BookInDB:
         raise HTTPException(404, "Book not found")
     return book
 
-# Obtener los libros por nombre de la tabla
-@router.get("/{table_name}", response_model=BookInDB, status_code=200)
-def get_books_by_table_name(table_name: str):
-    metadata = MetaData()
-    table = Table(table_name, metadata, autoload_with=engine)
+# Obtener los libros por subject (asignatura)
+@router.get("/subject/{subject}", response_model=list[BookInDB], status_code=200)
+def get_books_by_subject(subject: int) -> list[BookInDB]:
+    return book_svc.get_books_by_subject(subject=subject)
 
-    class DynamicModel(Base):
-        __table__ = table
-
-    query = session.query(DynamicModel)
-    results = query.all()
-
-    return results
 
 
 @router.patch("/{id}", response_model=None)
