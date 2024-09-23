@@ -40,10 +40,10 @@ def get_book(*, id: int) -> BookInDB:
         raise HTTPException(404, "Book not found")
     return book
 
-# Obtener los libros por subject (asignatura)
+# Obtener los libros por subject (asignatura) y topic (tema)
 @router.get("/{subject}/{topic}", response_model=list[BookInDB], status_code=200)
-def get_books_by_subject(subject: int, topic:int) -> list[BookInDB]:
-    return book_svc.get_books_by_subject(subject=subject, topic=topic)
+def get_books_by_subject_topic(subject: int, topic:int) -> list[BookInDB]:
+    return book_svc.get_books_by_subject_topic(subject=subject, topic=topic)
 
 
 
