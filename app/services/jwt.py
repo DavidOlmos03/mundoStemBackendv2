@@ -13,6 +13,7 @@ class JWTService:
     def __init__(self):
         self.observer: Type[JWTType] | None = None
 
+    ## Revisar si con estas dos funciones puedo revisar la autenticidad del token 
     def register_observer(self, observer: Type[JWTType]) -> None:
         self.observer = observer
         return None

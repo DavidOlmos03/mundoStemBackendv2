@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     """
 
     #: The application name
-    APP_NAME: str = "Digishop cotizador database Api"
+    APP_NAME: str = "MundoStem API"
     #: The application version
     APP_VERSION: str = "0.0.1"
     #: The application debug mode
