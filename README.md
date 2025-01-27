@@ -8,12 +8,16 @@ This document provides instructions on how to run the MundoStem API application.
 This option uses Docker to manage all services, including the database and the backend.
 
 #### Steps:
+1. Create the network mundostem:
+   ```bash
+   docker network create mundostem
+   ```
 
-1. Start the services with Docker Compose:
+2. Start the services with Docker Compose:
    ```bash
    docker compose -f ./docker/docker-compose.dev.yml up --build
    ```
-2. Start the application:
+3. Start the application:
    ```bash
    localhost:8002/docs
 ---
