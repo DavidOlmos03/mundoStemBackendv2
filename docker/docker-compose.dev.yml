@@ -34,7 +34,9 @@ services:
 
 networks:
     mundostem:
-        external: True
+      name: mundostem
+      driver: bridge
+      # external: True
 
 # volumes:
 #     mundostem-postgres:
